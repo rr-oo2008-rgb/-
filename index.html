@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>رامي للمفروشات</title>
+  <meta name="theme-color" content="#0b8f7b">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <style>
+    :root { --brand:#0b8f7b; --bg:#0f172a; --card:#111827; --text:#f8fafc; --muted:#94a3b8; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Noto Naskh Arabic UI','Noto Kufi Arabic',Tahoma,Arial,sans-serif; background:linear-gradient(180deg,#0b8f7b 0%,#052f2a 60%); color:var(--text); }
+    .wrap { max-width:980px; margin:0 auto; padding:24px; }
+    .card { background:rgba(17,24,39,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:24px; backdrop-filter: blur(6px); }
+    .brand { display:flex; align-items:center; gap:14px; }
+    .logo { width:56px; height:56px; border-radius:12px; background:#073e36; display:grid; place-items:center; font-weight:900; font-size:26px; }
+    h1 { margin:0; font-size:24px; }
+    p { color:var(--muted); line-height:1.7; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-top:18px; }
+    a.btn { text-decoration:none; display:block; padding:14px 16px; border-radius:12px; text-align:center; font-weight:700; background:#14b8a6; color:#04201c; }
+    a.btn:hover { filter:brightness(1.08); }
+    .ghost { background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.18); }
+    footer { margin-top:22px; text-align:center; font-size:12px; color:#a5b4fc; opacity:.9 }
+    .notice { margin-top:14px; font-size:13px; color:#d1fae5; }
+    .products { margin-top:18px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+    .product { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); border-radius:14px; overflow:hidden; }
+    .product img { width:100%; height:180px; object-fit:cover; display:block; }
+    .product .pbody { padding:12px; }
+    .product h3 { margin:0 0 6px 0; font-size:18px; color:#fff; }
+    .product p { margin:0; color:#cbd5e1; font-size:14px; }
+    .tag { display:inline-block; margin-top:8px; font-size:12px; padding:4px 8px; border-radius:999px; background:#0b8f7b; color:#04201c; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="brand">
+        <div class="logo" id="logoText">R</div>
+        <div>
+          <h1 id="title">رامي للمفروشات</h1>
+          <p id="subtitle">من المصنع مباشرة إلى بيتك</p>
+        </div>
+      </div>
+
+      <div class="grid" id="buttons"></div>
+
+      <div id="productsBlock" style="display:none;">
+        <h2 style="margin-top:22px;">منتجات مميزة</h2>
+        <div class="products" id="products"></div>
+      </div>
+
+      <p class="notice">لتثبيت التطبيق على هاتفك: افتح الرابط ← من المتصفح اختر "إضافة إلى الشاشة الرئيسية".</p>
+    </div>
+
+    <footer id="footer">© رامي للمفروشات</footer>
+  </div>
+
+  <script>
+    async function loadContent(){
+      try{
+        const res = await fetch('./content/content.json?ts=' + Date.now());
+        const data = await res.json();
+
+        document.getElementById('title').textContent = data.hero.title || 'رامي للمفروشات';
+        document.getElementById('subtitle').textContent = data.hero.subtitle || '';
+        document.getElementById('logoText').textContent = data.hero.logoText || 'R';
+        document.getElementById('footer').textContent = data.footer || '';
+
+        const btns = document.getElementById('buttons');
+        btns.innerHTML='';
+        (data.buttons || []).forEach(b => {
+          const a = document.createElement('a');
+          a.className = 'btn ' + (b.style==='ghost'?'ghost':'');
+          a.href = b.href;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.textContent = b.text;
+          btns.appendChild(a);
+        });
+
+        if (data.products && data.products.length){
+          document.getElementById('productsBlock').style.display='block';
+          const grid = document.getElementById('products');
+          grid.innerHTML='';
+          data.products.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'product';
+            const img = document.createElement('img');
+            img.src = p.image;
+            img.alt = p.name || 'منتج';
+            const body = document.createElement('div');
+            body.className = 'pbody';
+            const h3 = document.createElement('h3');
+            h3.textContent = p.name || '';
+            const d = document.createElement('p');
+            d.textContent = p.desc || '';
+            const tag = document.createElement('span');
+            tag.className = 'tag';
+            tag.textContent = p.price || '';
+            body.appendChild(h3); body.appendChild(d); body.appendChild(tag);
+            card.appendChild(img); card.appendChild(body);
+            grid.appendChild(card);
+          });
+        }
+      } catch(e){
+        console.error('Failed to load content.json', e);
+      }
+    }
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js');
+      });
+    }
+    loadContent();
+  </script>
+</body>
+</html>

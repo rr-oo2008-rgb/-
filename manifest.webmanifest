@@ -1,0 +1,22 @@
+{
+  "name": "رامي للمفروشات",
+  "short_name": "رامي",
+  "dir": "rtl",
+  "lang": "ar",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#052f2a",
+  "theme_color": "#0b8f7b",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

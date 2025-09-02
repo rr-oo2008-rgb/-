@@ -1,0 +1,53 @@
+{
+  "hero": {
+    "title": "رامي للمفروشات",
+    "subtitle": "من المصنع مباشرة إلى بيتك — تواصل سريع وحدّث الصفحة لإضافة عروض جديدة.",
+    "logoText": "R"
+  },
+  "buttons": [
+    {
+      "text": "💬 واتساب مباشر",
+      "href": "https://wa.me/972504491726"
+    },
+    {
+      "text": "📷 إنستغرام",
+      "href": "https://www.instagram.com/rami_furniture_?igsh=MXN2cDZ4ZXVyYjhyag%3D%3D&utm_source=qr",
+      "style": "ghost"
+    },
+    {
+      "text": "📘 فيسبوك",
+      "href": "https://www.facebook.com/share/16hUBkadY4/?mibextid=wwXIfr",
+      "style": "ghost"
+    },
+    {
+      "text": "👻 سناب شات",
+      "href": "https://t.snapchat.com/0fT7PMC2",
+      "style": "ghost"
+    },
+    {
+      "text": "🎵 تيك توك",
+      "href": "https://www.tiktok.com/@rami_furniture",
+      "style": "ghost"
+    },
+    {
+      "text": "☎️ اتصال هاتفي",
+      "href": "tel:0504491726",
+      "style": "ghost"
+    }
+  ],
+  "products": [
+    {
+      "name": "طقم جلوس مودرن 3+2+1",
+      "desc": "قماش مخملي مقاوم للبقع، ضمان 5 سنوات على الإسفنج.",
+      "price": "خصم 15%",
+      "image": "./images/sample-sofa.jpg"
+    },
+    {
+      "name": "طاولة سفرة 6 كراسي",
+      "desc": "خشب زان طبيعي، ألوان متعددة.",
+      "price": "عرض خاااص",
+      "image": "./images/sample-dining.jpg"
+    }
+  ],
+  "footer": "© رامي للمفروشات — 0504491726"
+}
